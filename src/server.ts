@@ -1,14 +1,12 @@
+import { json } from 'body-parser'
+import * as cors from 'cors'
 import * as express from 'express'
 import * as graphqlHTTP from 'express-graphql'
 import { makeExecutableSchema } from 'graphql-tools'
 import * as Raven from 'raven'
-import { json } from 'body-parser'
-import * as cors from 'cors'
 import { RAVEN_DSN } from '../config'
 
-Raven.config(
-  RAVEN_DSN
-).install()
+Raven.config(RAVEN_DSN).install()
 
 const customers = [
   { id: 1, name: 'Josef', city: 'Stockholm' },
@@ -68,10 +66,12 @@ const schema = makeExecutableSchema({
 })
 
 const formatError = error => {
-  const errorObj = {
-    message: error.message || 'This was bad',
-    code: (error.originalError && error.originalError.name) || 'Error'
-  }
+  const errorObj = new Error(
+    JSON.stringify({
+      message: error.message || 'This was bad',
+      code: (error.originalError && error.originalError.name) || 'Error'
+    })
+  )
   Raven.captureException(errorObj)
   return errorObj
 }
