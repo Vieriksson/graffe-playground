@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "module": "commonjs",
+      "target": "es2015",
+      "lib": ["es2017", "esnext.asynciterable"],
+      "noEmit": false,
+      "moduleResolution": "node",
+      "strict": false,
+      "noImplicitThis": true,
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "sourceMap": true,
+      "declaration": false,
+      "noUnusedLocals": true,
+      "outDir": "dist",
+      "rootDir": "./src",
+      "pretty": true
+    }
+  }
